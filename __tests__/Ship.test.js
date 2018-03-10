@@ -1,23 +1,28 @@
 /* globals describe it expect */
 const Ship = require('../src/Ship.js');
 const Port = require('../src/Port.js');
+const Itinerary = require('../src/Itinerary.js');
 
 describe('Ship', () => {
-  it('returns an object', () => {
-    expect(new Ship('BoatyMcBoatface')).toBeInstanceOf(Object);
-  });
-  it('it has a starting port', () => {
-    // const ship = new Ship('Dover');
+  it('can be instantiated', () => {
     const port = new Port('Dover');
-    const ship = new Ship(port);
+    const itinerary = new Itinerary([port]);
+    const ship = new Ship(itinerary);
+
+    expect(ship).toBeInstanceOf(Object);
+  });
+  it('has a starting port', () => {
+    const port = new Port('Dover');
+    const itinerary = new Itinerary([port]);
+    const ship = new Ship(itinerary);
 
     expect(ship.currentPort).toBe(port);
   });
   it('can set sail', () => {
     // setup
-    // const ship = new Ship('Dover');
     const port = new Port('Dover');
-    const ship = new Ship(port);
+    const itinerary = new Itinerary([port]);
+    const ship = new Ship(itinerary);
     // exercise
     ship.setSail();
     // verify
@@ -26,10 +31,12 @@ describe('Ship', () => {
   it('can dock at a different port', () => {
     // setup
     const dover = new Port('Dover');
-    const ship = new Ship(dover);
-    // exercise
     const calais = new Port('Calais');
-    ship.dock(calais);
+    const itinerary = new Itinerary([dover, calais]);
+    const ship = new Ship(itinerary);
+
+    // exercise
+    ship.dock();
     // verify
     expect(ship.currentPort).toBe(calais);
   });
