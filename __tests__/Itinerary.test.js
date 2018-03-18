@@ -1,5 +1,5 @@
-/* globals describe it expect */
-const Port = require('../src/Port.js');
+/* eslint-env jest */
+// const Port = require('../src/Port.js');
 const Itinerary = require('../src/Itinerary.js');
 
 describe('Itinerary', () => {
@@ -7,11 +7,8 @@ describe('Itinerary', () => {
     expect(new Itinerary('Calais')).toBeInstanceOf(Object);
   });
   it('can have ports', () => {
-    const dover = new Port('Dover');
-    const calais = new Port('Calais');
-
-    const itinerary = new Itinerary([dover, calais]);
-
-    expect(itinerary.ports).toEqual([dover, calais]);
+    const ports = [jest.fn(), jest.fn()];
+    const itinerary = new Itinerary(ports);
+    expect(itinerary.ports).toEqual(ports);
   });
 });
