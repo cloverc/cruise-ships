@@ -1,6 +1,5 @@
 /* eslint-env jest */
 const Ship = require('../src/Ship.js');
-const Port = require('../src/Port.js');
 const Itinerary = require('../src/Itinerary.js');
 
 describe('Ship', () => {
@@ -9,7 +8,11 @@ describe('Ship', () => {
     let port;
 
     beforeEach(() => {
-      port = new Port('Dover');
+      port = {
+        name: 'Dover',
+        removeShip: jest.fn(),
+        addShip: jest.fn(),
+      };
       const itinerary = new Itinerary([port]);
       ship = new Ship(itinerary);
     });
@@ -17,23 +20,29 @@ describe('Ship', () => {
     it('can be instantiated', () => {
       expect(ship).toBeInstanceOf(Object);
     });
-  
     it('has a starting port', () => {
       expect(ship.currentPort).toBe(port);
     });
-    
+
     it('can set sail', () => {
       // exercise
       ship.setSail();
       // verify
       expect(ship.currentPort).toBeFalsy();
-      expect(port.ships).not.toContain(ship);
-    });     
-
+      expect(port.removeShip).toHaveBeenCalledWith(ship);
+    });
     it('can dock at a different port', () => {
       // setup
-      const dover = new Port('Dover');
-      const calais = new Port('Calais');
+      const dover = {
+        name: 'Dover',
+        removeShip: jest.fn(),
+        addShip: jest.fn(),
+      };
+      const calais = {
+        name: 'Calais',
+        removeShip: jest.fn(),
+        addShip: jest.fn(),
+      };
       const itinerary = new Itinerary([dover, calais]);
       const ship = new Ship(itinerary);
 
@@ -41,11 +50,10 @@ describe('Ship', () => {
       ship.dock();
       // verify
       expect(ship.currentPort).toBe(calais);
-      expect(calais.ships).toContain(ship);
+      expect(calais.addShip).toHaveBeenCalledWith(ship);
     });
-
     it('gets added to port on instantiation', () => {
-      expect(port.ships).toContain(ship);
+      expect(port.addShip).toHaveBeenCalledWith(ship);
     });
   });
 });
