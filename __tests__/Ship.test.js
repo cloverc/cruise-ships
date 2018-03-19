@@ -1,6 +1,5 @@
 /* eslint-env jest */
 const Ship = require('../src/Ship.js');
-const Itinerary = require('../src/Itinerary.js');
 
 describe('Ship', () => {
   describe('with a port and itinerary', () => {
@@ -13,7 +12,9 @@ describe('Ship', () => {
         removeShip: jest.fn(),
         addShip: jest.fn(),
       };
-      const itinerary = new Itinerary([port]);
+      const itinerary = {
+        ports: [port],
+      };
       ship = new Ship(itinerary);
     });
 
@@ -43,7 +44,9 @@ describe('Ship', () => {
         removeShip: jest.fn(),
         addShip: jest.fn(),
       };
-      const itinerary = new Itinerary([dover, calais]);
+      const itinerary = {
+        ports: [dover, calais],
+      };
       const ship = new Ship(itinerary);
 
       // exercise
