@@ -20,8 +20,7 @@ Controller.prototype = {
       if (backgroundIndex === backgrounds.length) {
         backgroundIndex = 0;
       }
-    }, 1000);    
-    
-  }
-}
+    }, 1000);
+  },
+};
 
