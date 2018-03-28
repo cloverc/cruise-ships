@@ -1,5 +1,6 @@
-/* eslint-env browser */
-function Controller() {
+/* globals window */
+(function exportController() {
+  function Controller() {
   this.initialiseSea();
 }
 
@@ -22,5 +23,26 @@ Controller.prototype = {
       }
     }, 1000);
   },
-};
+  renderPorts(ports) {
+    const portsElement = document.querySelector('#ports');
+    portsElement.style.width = '0px';
+    ports.forEach((port, index) => {
+      const newPortElement = document.createElement('div');
+      newPortElement.className = 'port';
+      newPortElement.dataset.portIndex = index;
+      
 
+      portsElement.appendChild(newPortElement);
+      const portsElementWidth = parseInt(portsElement.style.width, 10);
+      portsElement.style.width = `${portsElementWidth + 256}px`;
+    })
+  }
+
+};
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = Controller;
+} else {
+  window.Controller = Controller;
+}
+
+}());
