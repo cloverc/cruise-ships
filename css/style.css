@@ -28,5 +28,11 @@ body {
     width: 64px;
     height: 32px;
     background-image: url('../images/port.png');
-    
+}
+
+#ship {
+    width: 128px;
+    height: 64px;
+    position: absolute;
+    background-image: url('../images/ship.png');
 }
