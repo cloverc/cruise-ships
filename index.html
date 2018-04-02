@@ -7,6 +7,7 @@
     <title>Cruise Ships</title>
     <link rel="stylesheet" href="css/normalize.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
 </head>
 <body>
     <div id="viewport">
@@ -14,6 +15,7 @@
         </div>
         <div id="ship">
         </div>
+        <button id="sailbutton">Set Sail!</button>
     </div>
     
     <script src="src/Controller.js"></script>
@@ -21,7 +23,6 @@
     <script src="src/Port.js"></script>
     <script src="src/Ship.js"></script>
     <script>
-        const controller = new Controller();
         const itinerary = new Itinerary([
             new Port('Dover'),
             new Port('Calais'),
@@ -29,9 +30,10 @@
             new Port('Grand Turk')
         ])
         const ship = new Ship(itinerary);
+        const controller = new Controller(ship);
 
         controller.renderPorts(itinerary.ports);
-        controller.renderShip(ship);
+        controller.renderShip();
     </script>
 </body>
 </html>
