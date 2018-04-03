@@ -56,4 +56,14 @@ body {
     border-bottom-width: 0;
     padding-top: 14px;
   }
+
+  #message {
+    padding: 16px;
+    font-family: 'Roboto Mono', monospace;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    border-top: 3px solid black;
+    background-color: white;
+  }
   
