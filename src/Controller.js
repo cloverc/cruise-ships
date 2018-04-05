@@ -51,7 +51,7 @@
       shipElement.style.top = `${portElement.offsetTop + 32}px`;
       shipElement.style.left = `${portElement.offsetLeft - 32}px`;
 
-      this.renderHeadUpDisplay(`Current Port: ${ship.currentPort.name}`, `Next Port: ${ship.itinerary.ports[1].name}`);
+      this.renderCurrentPortDisplay(`Current Port: ${ship.currentPort.name}`);
     },
     setSail() {
       const ship = this.ship;
@@ -64,6 +64,7 @@
       }
 
       this.renderMessage(`Now departing ${ship.currentPort.name}`);
+      this.renderNextPortDisplay(`Next Port: ${ship.itinerary.ports[nextPortIndex].name}`);
 
       const shipElement = document.querySelector('#ship');
       const sailInterval = setInterval(() => {
@@ -72,10 +73,10 @@
           ship.dock();
           clearInterval(sailInterval);
           this.renderMessage(`Now docking ${ship.currentPort.name}`);
+          this.renderCurrentPortDisplay(`Current Port: ${ship.currentPort.name}`);
         }
         shipElement.style.left = `${shipLeft + 1}px`;
       }, 20);
-      this.renderHeadUpDisplay(`Current Port: ${ship.currentPort.name}`, `Next Port: ${ship.itinerary.ports[nextPortIndex].name}`);
     },
     renderMessage(message) {
       const messageElement = document.createElement('div');
@@ -89,22 +90,27 @@
         viewport.removeChild(messageElement);
       }, 2000);
     },
-    renderHeadUpDisplay(currentPortMsg, nextPortMsg) {
+    renderCurrentPortDisplay(currentPortMsg) {
       const currentPortElement = document.createElement('div');
       currentPortElement.id = 'current-port';
       currentPortElement.innerHTML = currentPortMsg;
 
+      const headup = document.querySelector('#headup');
+      headup.appendChild(currentPortElement);
+
+      setTimeout(() => {
+        headup.removeChild(currentPortElement);
+      }, 2000);
+    },
+    renderNextPortDisplay(nextPortMsg) {
       const nextPortElement = document.createElement('div');
       nextPortElement.id = 'next-port';
       nextPortElement.innerHTML = nextPortMsg;
 
       const headup = document.querySelector('#headup');
-
-      headup.appendChild(currentPortElement);
       headup.appendChild(nextPortElement);
 
       setTimeout(() => {
-        headup.removeChild(currentPortElement);
         headup.removeChild(nextPortElement);
       }, 2000);
     },
