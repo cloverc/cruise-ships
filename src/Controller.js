@@ -50,6 +50,8 @@
       const shipElement = document.querySelector('#ship');
       shipElement.style.top = `${portElement.offsetTop + 32}px`;
       shipElement.style.left = `${portElement.offsetLeft - 32}px`;
+
+      this.renderHeadUpDisplay(`Current Port: ${ship.currentPort.name}`, `Next Port: ${ship.itinerary.ports[1].name}`);
     },
     setSail() {
       const ship = this.ship;
@@ -73,6 +75,7 @@
         }
         shipElement.style.left = `${shipLeft + 1}px`;
       }, 20);
+      this.renderHeadUpDisplay(`Current Port: ${ship.currentPort.name}`, `Next Port: ${ship.itinerary.ports[nextPortIndex].name}`);
     },
     renderMessage(message) {
       const messageElement = document.createElement('div');
@@ -84,7 +87,26 @@
 
       setTimeout(() => {
         viewport.removeChild(messageElement);
-      }, 2000);     
+      }, 2000);
+    },
+    renderHeadUpDisplay(currentPortMsg, nextPortMsg) {
+      const currentPortElement = document.createElement('div');
+      currentPortElement.id = 'current-port';
+      currentPortElement.innerHTML = currentPortMsg;
+
+      const nextPortElement = document.createElement('div');
+      nextPortElement.id = 'next-port';
+      nextPortElement.innerHTML = nextPortMsg;
+
+      const headup = document.querySelector('#headup');
+
+      headup.appendChild(currentPortElement);
+      headup.appendChild(nextPortElement);
+
+      setTimeout(() => {
+        headup.removeChild(currentPortElement);
+        headup.removeChild(nextPortElement);
+      }, 2000);
     },
   };
 

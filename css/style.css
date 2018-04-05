@@ -66,4 +66,15 @@ body {
     border-top: 3px solid black;
     background-color: white;
   }
+
+  #headup {
+    padding: 16px;
+    font-family: 'Roboto Mono', monospace;
+    color: white;
+    position: absolute;
+    width: 40%;
+    top: 0;
+    right: 0;
+    text-align: right;
+  }
   
