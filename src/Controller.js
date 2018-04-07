@@ -77,6 +77,7 @@
         }
         shipElement.style.left = `${shipLeft + 1}px`;
       }, 20);
+      this.renderNextPortDisplay(`Next Port: ${ship.itinerary.ports[nextPortIndex].name}`);
     },
     renderMessage(message) {
       const messageElement = document.createElement('div');
@@ -91,28 +92,23 @@
       }, 2000);
     },
     renderCurrentPortDisplay(currentPortMsg) {
-      const currentPortElement = document.createElement('div');
-      currentPortElement.id = 'current-port';
+      const currentPortElement = document.querySelector('#current-port');
+
+      // currentPortElement.id = 'current-port';
       currentPortElement.innerHTML = currentPortMsg;
 
       const headup = document.querySelector('#headup');
       headup.appendChild(currentPortElement);
-
-      setTimeout(() => {
-        headup.removeChild(currentPortElement);
-      }, 2000);
     },
     renderNextPortDisplay(nextPortMsg) {
-      const nextPortElement = document.createElement('div');
-      nextPortElement.id = 'next-port';
+      const nextPortElement = document.querySelector('#next-port');
+      nextPortElement.innerHTML = '';
+
+      // nextPortElement.id = 'next-port';
       nextPortElement.innerHTML = nextPortMsg;
 
-      const headup = document.querySelector('#headup');
-      headup.appendChild(nextPortElement);
-
-      setTimeout(() => {
-        headup.removeChild(nextPortElement);
-      }, 2000);
+      /* const headup = document.querySelector('#headup');
+      headup.appendChild(nextPortElement); */
     },
   };
 
